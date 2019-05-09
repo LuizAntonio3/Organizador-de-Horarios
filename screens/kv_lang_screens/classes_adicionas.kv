@@ -1,0 +1,81 @@
+
+
+
+<Celula>:
+    canvas:
+        Color:
+            rgba: get_color_from_hex('#FFFFFF')
+        Rectangle:
+            size: self.size
+            pos: self.pos
+        Color:
+            rgba: get_color_from_hex('#000000')
+        Line:
+            rectangle: self.x, self.y, self.width, self.height
+    FloatLayout:
+        size: root.size
+        pos: root.pos
+        # horario de inicio
+        Label:
+            pos_hint: {'center_x': .1, 'center_y': .8}
+            color: get_color_from_hex('#000000')
+            text: root.inicio
+        # horario de fim
+        Label:
+            pos_hint: {'center_x': .1, 'center_y': .2}
+            color: get_color_from_hex('#000000')
+            text: root.final
+        # tipo de 'marcação'
+        Label:
+            pos_hint: {'center_x': .9, 'center_y': .2}
+            color: get_color_from_hex('#000000')
+            text: 'Aula'
+        # materia
+        Label:
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            color: get_color_from_hex('#000000')
+            text: root.materia
+
+<Hora>:
+    canvas:
+        Color:
+            rgba: get_color_from_hex('#515151')
+        Rectangle:
+            size: self.size
+    GridLayout:
+        cols: 3
+        size: root.size
+        padding: 10
+        GridLayout:
+            cols: 1
+            size: self.size
+            Button:
+                text: '+'
+                on_release: root.incrementar_horas()
+            Label:
+                id: horas
+            Button:
+                text: '-'
+                on_release: root.decrementar_horas()
+        GridLayout:
+            cols: 1
+            size: self.size
+            Button:
+                text: '+'
+                on_release: root.incrementar_minutos()
+            Label:
+                id: minutos
+            Button:
+                text: '-'
+                on_release: root.decrementar_minutos()
+        GridLayout:
+            cols: 1
+            size: self.size
+            Button:
+                text: '+'
+                on_release: root.ids.turno.text = 'AM'
+            Label:
+                id: turno
+            Button:
+                text: '-'
+                on_release: root.ids.turno.text = 'PM'

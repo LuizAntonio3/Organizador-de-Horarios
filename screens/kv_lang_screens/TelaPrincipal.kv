@@ -1,0 +1,39 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import ScrollEffect kivy.effects.scroll.ScrollEffect
+
+<TelaPrincipal>:
+    FloatLayout:
+        GridLayout:
+            cols: 2
+            pos_hint: {"center_x": .5, "center_y": .9}
+            size_hint: .85, .1
+            padding: 2
+            canvas.before:
+                Color:
+                    rgba: get_color_from_hex('#FFFFFF')
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Button:
+                text: '{}'.format(root.size)
+                on_release: root.manager.current = 'adicionar_materia'
+
+
+        GridLayout:
+            cols: 1
+            pos_hint: {"center_x": .5, "center_y": .45}
+            size_hint: .85, .8
+            ScrollView:
+                effect_cls: ScrollEffect
+                GridLayout:
+                    id: container
+                    on_parent: self.bind(minimum_height=self.setter('height'))
+                    cols: 1
+                    size_hint_y: None
+                    padding: 5
+                    canvas:
+                        Color:
+                            rgba: get_color_from_hex('#515151')
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos

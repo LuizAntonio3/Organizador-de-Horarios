@@ -1,0 +1,11 @@
+dados: quantidade de materias, carga horaria semanal de cada materia, horas livres totais na semana, nivel de dificuldade, tempo minimo de estudo
+
+tempo minimo estudo = 30 minutos
+
+se tempo minimo * quantidade materias < horas livres totais na semana
+    tempo minimo de estudo = horas livres totais na semana / quantidade de materias
+
+gerar peso para cada materia dependendo do valor: carga horaria semanal da materia / carga horaria semanal(total)
+
+para cada materia:
+    horarios de estudo = peso * horas livres na semana

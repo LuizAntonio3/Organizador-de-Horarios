@@ -1,0 +1,55 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<TelaCadastroUsuario>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: get_color_from_hex('#515151')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: '#Titulo Aqui ou Logo#'
+            size_hint: .3, .3
+            pos_hint: {"center_x": .5, "center_y": .8}
+        GridLayout:
+            cols: 1
+            spacing: 1
+            size_hint: .6, .32
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            Label:
+                text: "Nome"
+                size_hint_x: .3
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                color: get_color_from_hex('#FFFFFF')
+            TextInput:
+                id: nome
+                focus: True
+                multiline: False
+                font_size: self.height*.53
+                write_tab: False
+                cursor_color: get_color_from_hex('#000000')
+            Label:
+                text: "Curso"
+                size_hint_x: .3
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                color: get_color_from_hex('#FFFFFF')
+            TextInput:
+                id: curso
+                multiline: False
+                font_size: self.height*.53
+                write_tab: False
+                cursor_color: get_color_from_hex('#000000')
+            Label:
+                id: invalidar
+                color: get_color_from_hex('#FF0000')
+            Button:
+                size_hint: .5, 1.
+                text: "Cadastrar"
+                on_release: if root.manager.get_screen('cadastrar_usuario').add_user(app.MyDb): root.manager.current = 'principal'

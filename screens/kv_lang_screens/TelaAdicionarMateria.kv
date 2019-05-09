@@ -1,0 +1,63 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<TelaAdicionarMateria>:
+    GridLayout:
+        cols: 1
+        spacing: 1
+        size_hint: .6, .65
+        pos_hint: {"center_x": .5, "center_y": .5}
+
+        Label:
+            text: "Materia"
+            size_hint_x: .3
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            color: get_color_from_hex('#FFFFFF')
+        TextInput:
+            id: materia
+            focus: True
+            multiline: False
+            write_tab: False
+            font_size_hint: 0.45
+            cursor_color: get_color_from_hex('#000000')
+        Label:
+            text: "Dificuldade"
+            size_hint_x: .3
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            color: get_color_from_hex('#FFFFFF')
+        Slider:
+            id: dificuldade
+            min: 1
+            max: 10
+        Label:
+            text: str(int(root.ids.dificuldade.value))
+        Label:
+            text: "Dia"
+            size_hint_x: .3
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            color: get_color_from_hex('#FFFFFF')
+        TextInput:
+            id: dia
+            multiline: False
+            write_tab: False
+            font_size_hint: 0.45
+            cursor_color: get_color_from_hex('#000000')
+        GridLayout:
+            id: entrada_horarios
+            cols: 1
+        Label:
+            id: invalidar
+            color: get_color_from_hex('#FF0000')
+        Button:
+            size_hint: .5, 1.
+            text: "Cadastrar"
+            on_release: if root.manager.get_screen('adicionar_materia').add_materia(app.MyDb): root.manager.current = 'principal'
+        Button:
+            size_hint: .5, 1.
+            text: "Mostrar"
+            on_release: print(app.MyDb.get_subjects())
