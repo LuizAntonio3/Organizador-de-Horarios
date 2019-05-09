@@ -49,15 +49,23 @@ class Database:
         # Tabela de horarios livres na semana
         cursor.execute("""
         CREATE TABLE horario_livre(
-            nome TEXT NOT NULL,
+            dia_semana TEXT NOT NULL,
             horas_livres FLOAT NOT NULL
+        );
+        """)
+
+        # Tabela de horarios de estudo
+        cursor.execute("""
+        CREATE TABLE horarios_estudo(
+            materia TEXT NOT NULL,
+            horas_estudo FLOAT NOT NULL
         );
         """)
 
         semana = [('segunda-feira', 0), ('terça-feira', 0), ('quarta-feira', 0), ('quinta-feira', 0), ('sexta-feira', 0), ('sabado', 0), ('domingo', 0)]
 
         cursor.executemany("""
-        INSERT INTO horario_livre(nome, horas_livres)
+        INSERT INTO horario_livre(dia_semana, horas_livres)
         VALUES(?, ?)
         """, semana)
 
@@ -99,6 +107,24 @@ class Database:
 
         return materias
 
+    def add_study_time(self, materia, horas_livres):
+        self.cursor.execute("""
+        INSERT INTO horarios_estudo(materia, horas_estudo)
+        VALUES (?, ?)
+        """, (materia, horas_estudo))
+
+        self.db_conn.commit()
+        print('materia adicionado com sucesso')
+
+    def get_study_time(self):
+        self.cursor.execute("""
+        SELECT * FROM horarios_estudo
+        """)
+
+        materias = self.cursor.fetchall()
+
+        return materias
+
     # @ apenas para debugging
     def get_free_time(self):
         self.cursor.execute("""
@@ -113,7 +139,7 @@ class Database:
         self.cursor.execute("""
         UPDATE horario_livre
         SET horas_livres = (?)
-        WHERE nome = (?)
+        WHERE dia_semana = (?)
         """, (horas, dia_semana))
 
         self.db_conn.commit()
