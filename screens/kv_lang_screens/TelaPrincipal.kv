@@ -15,14 +15,25 @@
                     size: self.size
                     pos: self.pos
             Button:
-                text: '{}'.format(root.size)
+                text: 'Adicionar Materia'
                 on_release: root.manager.current = 'adicionar_materia'
 
+            Button:
+                text: 'Adicionar Horario Livre'
+                on_release: root.manager.current = 'adicionar_horario_livre'
 
         GridLayout:
             cols: 1
             pos_hint: {"center_x": .5, "center_y": .45}
             size_hint: .85, .8
+            padding: 2
+            canvas:
+                Color:
+                    rgba: get_color_from_hex('#515151')
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
             ScrollView:
                 effect_cls: ScrollEffect
                 GridLayout:
@@ -30,7 +41,6 @@
                     on_parent: self.bind(minimum_height=self.setter('height'))
                     cols: 1
                     size_hint_y: None
-                    padding: 5
                     canvas:
                         Color:
                             rgba: get_color_from_hex('#515151')

@@ -126,15 +126,6 @@ class Database:
         return materias
 
     # @ apenas para debugging
-    def get_free_time(self):
-        self.cursor.execute("""
-        SELECT * FROM horario_livre
-        """)
-
-        free_time = self.cursor.fetchall()
-
-        return free_time
-
     def add_free_time(self, dia_semana, horas):
         self.cursor.execute("""
         UPDATE horario_livre
@@ -144,3 +135,12 @@ class Database:
 
         self.db_conn.commit()
         print('horario atualizado com sucesso')
+
+    def get_free_time(self):
+        self.cursor.execute("""
+        SELECT * FROM horario_livre
+        """)
+
+        free_time = self.cursor.fetchall()
+
+        return free_time

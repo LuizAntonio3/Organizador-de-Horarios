@@ -18,7 +18,7 @@ class MyApp(App):
     def __init__(self):
         super(MyApp, self).__init__()
 
-        self.MyDb = Database('MyDb.db')
+        self.MyDb = Database('MyDb')
         self.sm = ScreenManager(transition=FadeTransition())
 
     def build(self):
@@ -30,8 +30,9 @@ class MyApp(App):
         # faz a amostragem da tela de cadastro de usuario somente se nenhum usuario existir no banco de dados
         if len(self.MyDb.get_users()) == 0:
             self.sm.add_widget(TelaCadastroUsuario(name='cadastrar_usuario'))
-        self.sm.add_widget(TelaPrincipal(name='principal')) # Corrigir essa tela
-        # self.sm.add_widget(TelaAdicionarMateria(name='adicionar_materia')) # Corrigir essa tela
+        self.sm.add_widget(TelaPrincipal(name='principal'))
+        self.sm.add_widget(TelaAdicionarMateria(name='adicionar_materia'))
+        self.sm.add_widget(TelaAdicionarHorarioLivre(name='adicionar_horario_livre'))
 
         return self.sm
 

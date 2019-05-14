@@ -32,33 +32,54 @@ class TelaPrincipal(Screen):
 
 
 class TelaAdicionarMateria(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        # self.ids['entrada_horarios'].add_widget(Hora(pos=(.5, .5)))
-
     def add_materia(self, MyDb):
         materia = self.ids.materia.text
         dificuldade = int(self.ids.dificuldade.value)
-        dia = self.ids.dia.text
-        inicio = self.ids.inicio.text
-        termino = self.ids.termino.text
+        carga_horaria_semanal = self.ids.carga_horaria_semanal.text
 
         valido = True
 
         # verifica se todos os campos estão preenchidos
-        for id in self.ids:
-            if self.ids[id].text == '':
-                valido = False
-
-        if valido:
-            MyDb.add_subjects(materia, dia, inicio, termino, dificuldade)
+        if materia == '' or carga_horaria_semanal == '':
+            print("Todos os campos devem ser preenchidos")
+            self.ids.invalidar.text = 'Todos os campos devem ser preenchidos'
+            return False
+        else:
+            MyDb.add_subjects(materia, dificuldade, carga_horaria_semanal)
 
             # limpa todos os campos
             for id in self.ids:
                 self.ids[id].text = ''
 
             return True
-        else:
+
+class TelaAdicionarHorarioLivre(Screen):
+    def add_free_time(self, MyDb):
+        dia = self.ids.dia_semana.text
+        horas = self.ids.horas_livres.text
+
+        remove_char = ('\n', '\t', ' ', ' ')
+        dia = dia.translate({ord(item): None for item in remove_char})
+
+        if dia == '' or horas == '':
             print("Todos os campos devem ser preenchidos")
-            self.ids.invalidar.text = 'Preencha tudo'
+            self.ids.invalidar.text = 'Todos os campos devem ser preenchidos'
             return False
+        else:
+            horas = float(horas)
+
+            MyDb.cursor.execute('''
+            UPDATE horario_livre
+            SET
+                horas_livres = (?)
+            WHERE
+                dia_semana = (?);
+            ''', (horas, dia))
+
+            MyDb.db_conn.commit()
+
+            # limpa todos os campos
+            for id in self.ids:
+                self.ids[id].text = ''
+
+            return True
