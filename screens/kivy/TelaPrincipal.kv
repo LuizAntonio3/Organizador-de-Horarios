@@ -51,3 +51,8 @@
                 size_hint: .5, 1.
                 text: "Gerar"
                 on_release: root.manager.get_screen('adicionar_materia').generate_study_time(app.MyDb)
+
+            Button:
+                size_hint: .5, 1.
+                text: "Mostrar"
+                on_release: print(app.MyDb.get_study_time())

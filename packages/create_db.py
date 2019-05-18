@@ -107,14 +107,14 @@ class Database:
 
         return materias
 
-    def add_study_time(self, materia, horas_livres):
+    def add_study_time(self, materia, horas_estudo):
         self.cursor.execute("""
         INSERT INTO horarios_estudo(materia, horas_estudo)
         VALUES (?, ?)
         """, (materia, horas_estudo))
 
         self.db_conn.commit()
-        print('materia adicionado com sucesso')
+        print('horario de estudo adicionado com sucesso')
 
     def get_study_time(self):
         self.cursor.execute("""

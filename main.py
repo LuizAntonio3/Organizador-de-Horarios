@@ -6,13 +6,14 @@ from kivy.config import Config
 
 # Importar Classes extras
 from packages.create_db import Database
-from screens.telas import *
-from screens.kv_lang_screens.loader import load_screens
+from screens.python import *
+from screens.kivy.loader import load_screens
 
 # apenas para teste e apresentação
 Config.set('graphics', 'resizable', '0')
 Config.set('graphics', 'width', '400')
 Config.set('graphics', 'height', '600')
+
 
 class MyApp(App):
     def __init__(self):
@@ -30,9 +31,9 @@ class MyApp(App):
         # faz a amostragem da tela de cadastro de usuario somente se nenhum usuario existir no banco de dados
         if len(self.MyDb.get_users()) == 0:
             self.sm.add_widget(TelaCadastroUsuario(name='cadastrar_usuario'))
-        self.sm.add_widget(TelaPrincipal(name='principal'))
-        self.sm.add_widget(TelaAdicionarMateria(name='adicionar_materia'))
-        self.sm.add_widget(TelaAdicionarHorarioLivre(name='adicionar_horario_livre'))
+        self.sm.add_widget(principal.TelaPrincipal(name='principal'))
+        self.sm.add_widget(adicionar_materia.TelaAdicionarMateria(name='adicionar_materia'))
+        self.sm.add_widget(adicionar_horario_livre.TelaAdicionarHorarioLivre(name='adicionar_horario_livre'))
 
         return self.sm
 

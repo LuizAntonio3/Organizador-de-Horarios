@@ -3,7 +3,7 @@ from kivy.lang import Builder
 
 
 def load_screens():
-    path = 'screens/kv_lang_screens/'
+    path = 'screens/kivy/'
 
     # implementar algo melhor para ignorar as pastas/arquivos de formatos diferentes de .kv
     ignore = ['__init__.py', 'loader.py', '__pycache__']

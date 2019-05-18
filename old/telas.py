@@ -1,6 +1,5 @@
 from kivy.uix.screenmanager import Screen
 from .adicionais import *
-from random import randint
 
 # apenas para teste
 materias = ['Calculo I', 'Algebra Linear I', 'Fisica I', 'Mato', 'LP-I']
@@ -34,6 +33,9 @@ class TelaPrincipal(Screen):
 
 class TelaAdicionarMateria(Screen):
     def generate_study_time(self, MyDb):
+        # atualizar isso aqui ****
+        horario_livre = 10
+
         lista_materias = MyDb.get_subjects()
         quantidade_materias = len(lista_materias)
 
@@ -42,27 +44,36 @@ class TelaAdicionarMateria(Screen):
         soma_dificuldades = sum(lista_dificuldades)
         carga_horaria_semanal = sum(lista_carga_horaria)
 
-        soma_p_y = 0
+        soma_pesos = 0
 
-        peso_materias = list()
-        # armazenar em array e em seguida fazer as operações pra gerar o tempo
-        # de estudo de cada materia
+        lista_pesos = list()
         for materia in lista_materias:
-            p_q_materias = 1/quantidade_materias
-            p_dificuldade = materia[2]/soma_dificuldades
-            p_c_horaria = materia[3]/carga_horaria_semanal
+            peso_qtd_materias = 1/quantidade_materias
+            peso_dificuldade = materia[2]/soma_dificuldades
+            peso_c_horaria = materia[3]/carga_horaria_semanal
 
-            p_y = p_q_materias*p_dificuldade+p_c_horaria
+            peso_materia = peso_qtd_materias*peso_c_horaria+peso_dificuldade
 
-            peso_materias.append(p_y)
+            lista_pesos.append(peso_materia)
 
-            soma_p_y += p_y
+            soma_pesos += peso_materia
 
-        for i in range(len(peso_materias)):
-            peso_materias[i] /= soma_p_y
+        for i in range(len(lista_pesos)):
+            materia = lista_materias[i][1]
+            horas = (lista_pesos[i]/soma_pesos)*horario_livre
 
+            comando = "SELECT * FROM horarios_estudo WHERE materia = '{}'".format(materia)
+            MyDb.cursor.execute(comando)
+            items = MyDb.cursor.fetchall()
 
-        print(peso_materias)
+            if len(items) == 0:
+                MyDb.add_study_time(materia, horas)
+            else:
+                comando = """UPDATE horarios_estudo
+                             SET horas_estudo = '{}'
+                             WHERE materia = '{}'""".format(horas, materia)
+                MyDb.cursor.execute(comando)
+
 
     def add_materia(self, MyDb):
         materia = self.ids.materia.text
