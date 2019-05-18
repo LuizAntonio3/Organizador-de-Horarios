@@ -47,3 +47,7 @@
                         Rectangle:
                             size: self.size
                             pos: self.pos
+            Button:
+                size_hint: .5, 1.
+                text: "Gerar"
+                on_release: root.manager.get_screen('adicionar_materia').generate_study_time(app.MyDb)
