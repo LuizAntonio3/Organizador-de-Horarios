@@ -1,3 +1,5 @@
+from time import sleep
+
 # Importar dependencias do kivy
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, FadeTransition
@@ -29,11 +31,15 @@ class MyApp(App):
         # Adiciona todas as telas ao gerenciador
 
         # faz a amostragem da tela de cadastro de usuario somente se nenhum usuario existir no banco de dados
-        if len(self.MyDb.get_users()) == 0:
-            self.sm.add_widget(TelaCadastroUsuario(name='cadastrar_usuario'))
-        self.sm.add_widget(principal.TelaPrincipal(name='principal'))
-        self.sm.add_widget(adicionar_materia.TelaAdicionarMateria(name='adicionar_materia'))
+        self.sm.add_widget(adicionar_materia.TelaAdicionarMateria(self.MyDb, name='adicionar_materia'))
         self.sm.add_widget(adicionar_horario_livre.TelaAdicionarHorarioLivre(name='adicionar_horario_livre'))
+
+        self.sm.add_widget(principal.TelaPrincipal(self.MyDb, name='principal'))
+
+        if len(self.MyDb.get_users()) == 0:
+            self.sm.add_widget(cadastro_usuario.TelaCadastroUsuario(name='cadastrar_usuario'))
+
+        self.sm.current = "principal"
 
         return self.sm
 

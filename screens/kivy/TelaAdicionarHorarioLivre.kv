@@ -1,51 +1,62 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
 <TelaAdicionarHorarioLivre>:
-    Button:
-        size_hint: .2, .1
-        pos_hint: {"x": 0, "center_y": 1-self.size_hint[1]/2}
-        text: '<'
-        on_release: root.manager.current = 'principal'
-    GridLayout:
-        cols: 1
-        spacing: 1
-        size_hint: .6, .65
-        pos_hint: {"center_x": .5, "center_y": .5}
-        Label:
-            text: "Dia semana"
-            size_hint_x: .3
-            text_size: self.size
-            halign: 'left'
-            valign: 'middle'
-            color: get_color_from_hex('#FFFFFF')
-        TextInput:
-            id: dia_semana
-            focus: True
-            multiline: False
-            write_tab: False
-            font_size_hint: 0.45
-            cursor_color: get_color_from_hex('#000000')
-        Label:
-            text: "Horas Livres"
-            size_hint_x: .3
-            text_size: self.size
-            halign: 'left'
-            valign: 'middle'
-            color: get_color_from_hex('#FFFFFF')
-        TextInput:
-            id: horas_livres
-            multiline: False
-            write_tab: False
-            font_size_hint: 0.45
-            cursor_color: get_color_from_hex('#000000')
-        Label:
-            id: invalidar
-            color: get_color_from_hex('#FF0000')
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: get_color_from_hex('#515151')
+            Rectangle:
+                size: self.size
+                pos: self.pos
         Button:
-            size_hint: .5, 1.
-            text: "Cadastrar"
-            on_release: if root.manager.get_screen('adicionar_horario_livre').add_free_time(app.MyDb): root.manager.current = 'principal'
-        Button:
-            size_hint: .5, 1.
-            text: "Mostrar"
-            on_release: print(app.MyDb.get_free_time())
+            size_hint: .2, .1
+            pos_hint: {"x": 0, "center_y": 1-self.size_hint[1]/2}
+            text: '<'
+            on_release: root.manager.current = 'principal'
+        GridLayout:
+            cols: 1
+            spacing: 1
+            size_hint: .85, .7
+            row_default_height: 35
+            pos_hint: {"center_x": .5, "center_y": .5}
+            Label:
+                text: "Dia semana"
+                size_hint_x: .3
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                color: get_color_from_hex('#FFFFFF')
+            TextInput:
+                id: dia_semana
+                size_hint_y: None
+                height: 35
+                focus: True
+                multiline: False
+                write_tab: False
+                font_size_hint: 0.45
+                cursor_color: get_color_from_hex('#000000')
+            Label:
+                text: "Horas Livres"
+                size_hint_x: .3
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                color: get_color_from_hex('#FFFFFF')
+            TextInput:
+                id: horas_livres
+                size_hint_y: None
+                height: 35
+                multiline: False
+                write_tab: False
+                font_size_hint: 0.45
+                cursor_color: get_color_from_hex('#000000')
+            Label:
+                id: invalidar
+            Button:
+                size_hint: .5, .15
+                text: "Cadastrar"
+                on_release: if root.manager.get_screen('adicionar_horario_livre').add_free_time(app.MyDb): root.manager.get_screen('adicionar_materia').generate_study_time()
+            Button:
+                size_hint: .5, .15
+                text: "Mostrar"
+                on_release: print(app.MyDb.get_free_time())

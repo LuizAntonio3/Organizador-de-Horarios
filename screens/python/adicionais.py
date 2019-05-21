@@ -10,9 +10,25 @@ class Celula(Widget):
     def __init__(self, values={}, **kwargs):
         super(Celula, self).__init__(**kwargs)
 
-        self.inicio = values['inicio']
-        self.final = values['final']
-        self.materia = values['materia']
+        # Variaveis auxiliares
+        horas = 0
+        minutos = 0
+
+        materia = str(values['materia'])
+        dificuldade = 'Dificuldade: {}'.format(str(values['dificuldade']))
+
+        horas = int(values['carga_horaria_semanal'])
+        minutos = int((values['carga_horaria_semanal']-horas)*60)
+        carga_horaria_semanal = 'Carga Horaria: {:0>2}:{:0>2}'.format(horas, minutos)
+
+        horas = int(values['tempo_estudo'])
+        minutos = int((values['tempo_estudo']-horas)*60)
+        tempo_estudo = 'Estudar Durante: {:0>2}:{:0>2}'.format(horas, minutos)
+
+        self.ids['materia'].text = materia
+        self.ids['dificuldade'].text = dificuldade
+        self.ids['carga_horaria_semanal'].text = carga_horaria_semanal
+        self.ids['tempo_estudo'].text = tempo_estudo
 
 
 class Hora(Widget):

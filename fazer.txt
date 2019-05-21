@@ -1,0 +1,6 @@
+*listador de materias
+*metodo de apagar materia
+*listador de horarios livres
+*metodo de apagar horarios
+
+*listador de horarios de estudo na tela principal (sem semana) {concluido}

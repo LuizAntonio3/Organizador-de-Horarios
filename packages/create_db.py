@@ -65,8 +65,8 @@ class Database:
         semana = [('segunda-feira', 0), ('terça-feira', 0), ('quarta-feira', 0), ('quinta-feira', 0), ('sexta-feira', 0), ('sabado', 0), ('domingo', 0)]
 
         cursor.executemany("""
-        INSERT INTO horario_livre(dia_semana, horas_livres)
-        VALUES(?, ?)
+            INSERT INTO horario_livre(dia_semana, horas_livres)
+            VALUES(?, ?)
         """, semana)
 
         conn.commit()
