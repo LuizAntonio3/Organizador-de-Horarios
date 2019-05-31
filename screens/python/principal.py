@@ -20,7 +20,7 @@ class TelaPrincipal(Screen):
             for horario in horarios_estudo:
                 if materia[1] == horario[0]:
                     args = {'materia': materia[1], 'dificuldade': materia[2], 'carga_horaria_semanal': materia[3], 'tempo_estudo': horario[1]}
-                    self.ids['container'].add_widget(Celula(args, size_hint_y=None, height=80))
+                    self.ids['container'].add_widget(Celula(args, size_hint_y=None, height=90))
                     break
 
         return True

@@ -29,17 +29,17 @@ class MyApp(App):
         load_screens()
 
         # Adiciona todas as telas ao gerenciador
-
-        # faz a amostragem da tela de cadastro de usuario somente se nenhum usuario existir no banco de dados
         self.sm.add_widget(adicionar_materia.TelaAdicionarMateria(self.MyDb, name='adicionar_materia'))
         self.sm.add_widget(adicionar_horario_livre.TelaAdicionarHorarioLivre(name='adicionar_horario_livre'))
 
         self.sm.add_widget(principal.TelaPrincipal(self.MyDb, name='principal'))
 
+        # faz a amostragem da tela de cadastro de usuario somente se nenhum usuario existir no banco de dados
         if len(self.MyDb.get_users()) == 0:
             self.sm.add_widget(cadastro_usuario.TelaCadastroUsuario(name='cadastrar_usuario'))
-
-        self.sm.current = "principal"
+            self.sm.current = 'cadastrar_usuario'
+        else:
+            self.sm.current = "principal"
 
         return self.sm
 

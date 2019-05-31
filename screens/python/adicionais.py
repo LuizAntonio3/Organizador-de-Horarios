@@ -3,16 +3,13 @@ from kivy.properties import ObjectProperty
 
 
 class Celula(Widget):
-    inicio = ObjectProperty('')
-    final = ObjectProperty('')
-    materia = ObjectProperty('')
-
     def __init__(self, values={}, **kwargs):
         super(Celula, self).__init__(**kwargs)
-
         # Variaveis auxiliares
         horas = 0
         minutos = 0
+
+        print(values)
 
         materia = str(values['materia'])
         dificuldade = 'Dificuldade: {}'.format(str(values['dificuldade']))

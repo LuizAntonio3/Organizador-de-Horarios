@@ -16,5 +16,5 @@ def load_screens():
 
     # carrega cada tela
     for file in files:
-        with open(path + file, 'r') as screen:
+        with open(path + file, 'r', encoding='utf-8') as screen:
             Builder.load_string(screen.read())
